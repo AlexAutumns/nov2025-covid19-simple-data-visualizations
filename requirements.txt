@@ -1,0 +1,16 @@
+# Core analysis libraries
+pandas
+numpy
+matplotlib
+seaborn
+plotly
+
+# Jupyter environment
+jupyterlab
+ipykernel
+jupyterlab-dash
+ipywidgets
+IPython
+
+# File formats
+openpyxl
