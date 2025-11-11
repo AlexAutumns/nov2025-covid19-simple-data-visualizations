@@ -1,13 +1,35 @@
-# Python
+# ============================================
+# 🐍 Python
+# ============================================
 __pycache__/
 *.pyc
 .venv/
+venv/
 
-# Jupyter
+# ============================================
+# 📓 Jupyter
+# ============================================
 .ipynb_checkpoints/
 
-# Data
+# ============================================
+# 📊 Data files
+# ============================================
 *.zip
 
-# Environment
+# Raw data should stay (so you can reprocess), 
+# but exclude all processed outputs and summaries
+data/processed/*
+!data/raw/
+!data/README.md
+
+# ============================================
+# 🖼️ Generated Visualizations
+# ============================================
+# Exclude all generated visualization outputs
+src/visualization/WHO_COVID19_NoGlobal/*
+src/visualization/WHO_COVID19_WithGlobal/*
+
+# ============================================
+# ⚙️ Environment & Config
+# ============================================
 .env

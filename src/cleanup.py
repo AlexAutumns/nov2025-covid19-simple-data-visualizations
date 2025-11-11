@@ -180,13 +180,24 @@ def process_dataset(file_path: Path):
     df = add_derived_metrics(df)
     df = confirm_and_keep_columns(df)
 
-    # Save processed version
-    out_path = PROCESSED_DIR / file_path.name
-    df.to_csv(out_path, index=False)
-    print(f"💾 Saved cleaned file to: {out_path.resolve()}")
+    # --- Split into two datasets ---
+    print("\n🔍 Splitting dataset into two versions:")
+    df_with_global = df.copy()
+    df_without_global = df[df["Name"].str.lower() != "global"].copy()
 
-    # Generate Markdown documentation
-    generate_markdown_summary(df, file_path.name)
+    # Save both versions
+    out_with = PROCESSED_DIR / f"{file_path.stem}_with_global.csv"
+    out_without = PROCESSED_DIR / f"{file_path.stem}_without_global.csv"
+
+    df_with_global.to_csv(out_with, index=False)
+    df_without_global.to_csv(out_without, index=False)
+
+    print(f"💾 Saved with global → {out_with.name}")
+    print(f"💾 Saved without global → {out_without.name}")
+
+    # Markdown summaries
+    generate_markdown_summary(df_with_global, out_with.name)
+    generate_markdown_summary(df_without_global, out_without.name)
 
 
 if __name__ == "__main__":
@@ -199,4 +210,4 @@ if __name__ == "__main__":
         for f in csv_files:
             process_dataset(f)
 
-    print("🎉 All done! Processed files and summaries saved in data/processed/")
+    print("🎉 All done! Two cleaned versions (with/without Global) saved in data/processed/")
